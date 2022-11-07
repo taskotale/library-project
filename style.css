@@ -58,3 +58,16 @@ body {
     background: none;
     margin: var(--base-dimension);
 }
+#bookshelf {
+    margin: var(--base-dimension);
+    display: grid;
+    gap: var(--base-dimension);
+    grid-template-columns: repeat(3, 1fr);
+}
+
+#bookshelf>div {
+    height: 200px;
+    background-color: var(--alternative-color);
+    padding: var(--base-dimension);
+    border-radius: var(--base-dimension);
+}
