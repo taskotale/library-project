@@ -9,19 +9,14 @@ const showLibrary = () => {
     });
 }
 
-const addOnBookshelf = (addedBook) => {
-    let bookCard = document.createElement('div')
-        bookCard.innerText = (addedBook.info())
-        bookshelf.appendChild(bookCard)
-}
 
-const book1 = new Book('addTitle', 'addAuthor', 'addPages', 'addRead')
+const book1 = new Book('addTitle', 'addAuthor', 'addPages', true)
 myLibrary.push(book1)
-const book2 = new Book('bookrandom', 'someone', '23423', 'no')
+const book2 = new Book('bookrandom', 'someone', '23423', false)
 myLibrary.push(book2)
-const book3 = new Book('dsada', 'zdc', '213', 'no')
+const book3 = new Book('dsada', 'zdc', '213', true)
 myLibrary.push(book3)
-const book4 = new Book('fsdf', 'addAudfdsfthor', '333', '1')
+const book4 = new Book('fsdf', 'addAudfdsfthor', '333', true)
 myLibrary.push(book4)
 
 showLibrary()
@@ -30,7 +25,7 @@ const addBookBtn = document.getElementById('add-new-book-btn')
 const addNewBook = document.getElementById('add-new-book')
 addBookBtn.addEventListener('click', e => addNewBook.classList.add('active'))
 
-// make this neater, without too many get element
+// make this neat, without too many get element
 const bookTitle = document.getElementById('book-title')
 const bookAuthor = document.getElementById('book-author')
 const bookPages = document.getElementById('book-pages')
@@ -49,11 +44,17 @@ function Book(title, author, pages, read) {
     }
 }
 
+const addOnBookshelf = (addedBook) => {
+    let bookCard = document.createElement('div')
+        bookCard.innerText = (addedBook.info())
+        bookshelf.appendChild(bookCard)
+}
+
 const getBookDetails = (event) => {
     inputTitle = bookTitle.value
     inputAuthor = bookAuthor.value
     inputPages = bookPages.value
-    inputRead = bookRead.value
+    inputRead = bookRead.checked
     addBookToLibrary(inputTitle, inputAuthor, inputPages, inputRead)
     event.preventDefault(); //just for know to stop browser from refreshing
     addNewBook.classList.remove('active')

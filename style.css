@@ -1,10 +1,20 @@
+:root {
+    --main-color: green;
+    --accent-color:yellow;
+    --alternative-color:royalblue;
+    --base-dimension: 1rem;
+}
+
+* {
+    font-family: 'Architects Daughter';
+}
 body {
     margin: 0;
 }
 
 #add-new-book {
     position: fixed;
-    z-index: 99;
+    z-index: 10;
     top: 0;
     height: 100%;
     width: 100%;
@@ -14,6 +24,37 @@ body {
 
 #add-new-book.active {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+#add-new-book::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    height: 50%;
+    width: 30%;
+    background-color:var(--main-color);
+    border-radius: var(--base-dimension);
+    box-shadow: 2px 2px 2px black;
+}
+
+.active>label {
+    margin: var(--base-dimension);
+}
+
+.active>input {
+    background: none;
+    border: none;
+    border-bottom: 1px solid;
+}
+
+#book-read {
+    background-color: #eee;
+}
+
+.active>button {
+    background: none;
+    margin: var(--base-dimension);
 }
