@@ -1,31 +1,30 @@
 let myLibrary = [];
+const bookshelf = document.getElementById('bookshelf')
 
-
-function Book(title, author, pages, read) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
-
-    this.readStatus = function () {
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title
+        this.author = author
+        this.pages = pages
+        this.read = read
+        this.readBtn = document.createElement('button')
+        this.readBtn.id = 'read-toggle-btn'
+        this.readBtn.className = myLibrary.length
+        this.readBtn.textContent = this.readStatus()
+    }
+    readStatus() {
         return this.read ? 'You already read this book' : 'You did not read this book yet'
     }
-
-    this.timeOfInput = function () {
+    timeOfInput() {
         const date = new Date()
         let day = date.getDate()
         let month = date.getMonth()
         let year = date.getFullYear()
         return (`Date of input: ${month}-${day}-${year}`)
     }
-    this.info = function () {
+    info() {
         return (`Title : ${this.title} \rAuthor: ${this.author} \r Length: ${this.pages} pages\r\r ${this.timeOfInput()}\r\r`)
     }
-    this.readBtn = document.createElement('button')
-    this.readBtn.id = 'read-toggle-btn'
-    this.readBtn.className = myLibrary.length
-    this.readBtn.textContent = this.readStatus()
-
 }
 
 //for testing purposes - will delete later
@@ -38,7 +37,6 @@ myLibrary.push(book3)
 const book4 = new Book('fsdf', 'addAudfdsfthor', '333', true)
 myLibrary.push(book4)
 
-const bookshelf = document.getElementById('bookshelf')
 
 const createBookCard = (bookToDisplay) => {
     let bookCard = document.createElement('div')
@@ -47,8 +45,8 @@ const createBookCard = (bookToDisplay) => {
     bookshelf.appendChild(bookCard)
 }
 
-const showBooks = (where) => {
-    where.forEach(book => {
+const showBooks = (fromWhere) => {
+    fromWhere.forEach(book => {
         createBookCard(book)
     });
 }
@@ -59,30 +57,23 @@ const addOnBookshelf = (addedBook) => {
 
 showBooks(myLibrary)
 
-const addBookBtn = document.getElementById('add-new-book-btn')
-const addNewBook = document.getElementById('add-new-book')
-addBookBtn.addEventListener('click', e => addNewBook.classList.add('active'))
-
-// make this neat
-const bookTitle = document.getElementById('book-title')
-const bookAuthor = document.getElementById('book-author')
-const bookPages = document.getElementById('book-pages')
-const bookRead = document.getElementById('book-read')
-
-const submitBtn = document.getElementById('submit-btn')
-
 const getBookDetails = (event) => {
-    inputTitle = bookTitle.value
-    inputAuthor = bookAuthor.value
-    inputPages = bookPages.value
-    inputRead = bookRead.checked
+    inputTitle = document.getElementById('book-title').value
+    inputAuthor = document.getElementById('book-author').value
+    inputPages = document.getElementById('book-pages').value
+    inputRead = document.getElementById('book-read').checked
     addBookToLibrary(inputTitle, inputAuthor, inputPages, inputRead)
     event.preventDefault(); //just for know to stop browser from refreshing
     addOnBookshelf(myLibrary[myLibrary.length - 1])
     addNewBook.classList.remove('active')
 }
 
-submitBtn.addEventListener('click', getBookDetails)
+const addBookBtn = document.getElementById('add-new-book-btn')
+const addNewBook = document.getElementById('add-new-book')
+addBookBtn.addEventListener('click', e => addNewBook.classList.add('active'))
+
+const submitNewBookBtn = document.getElementById('submit-btn')
+submitNewBookBtn.addEventListener('click', getBookDetails)
 
 function addBookToLibrary(addTitle, addAuthor, addPages, addRead) {
     addTitle = new Book(addTitle, addAuthor, addPages, addRead)
@@ -91,7 +82,9 @@ function addBookToLibrary(addTitle, addAuthor, addPages, addRead) {
 
 const readStatusToggle = document.querySelector('#bookshelf')
 readStatusToggle.addEventListener('click', e => {
-    myLibrary[e.target.className].read ? myLibrary[e.target.className].read = false : myLibrary[e.target.className].read = true
-    myLibrary[e.target.className].readBtn.textContent = myLibrary[e.target.className].readStatus()
+    if (e.target.id === 'read-toggle-btn') {
+        myLibrary[e.target.className].read ? myLibrary[e.target.className].read = false : myLibrary[e.target.className].read = true
+        myLibrary[e.target.className].readBtn.textContent = myLibrary[e.target.className].readStatus()
+    }
 })
 
