@@ -72,7 +72,7 @@ body {
     color: var(--accent-color);
 }
 
-#read-toggle-btn {
+#read-toggle-btn{
     background-color: red;
     padding: 2rem;
     font-size: larger;

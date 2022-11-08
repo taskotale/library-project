@@ -1,10 +1,15 @@
 let myLibrary = [];
 
+
 function Book(title, author, pages, read) {
     this.title = title
     this.author = author
     this.pages = pages
     this.read = read
+
+    this.readStatus = function () {
+        return this.read ? 'You already read this book' : 'You did not read this book yet'
+    }
 
     this.timeOfInput = function () {
         const date = new Date()
@@ -14,10 +19,13 @@ function Book(title, author, pages, read) {
         return (`Date of input: ${month}-${day}-${year}`)
     }
     this.info = function () {
-        let readStatus;
-        this.read ? readStatus = 'You already read this book' : readStatus = 'You did not read this book yet'
-        return (`Title : ${this.title} \rAuthor: ${this.author} \r Length: ${this.pages} pages\r\r ${this.timeOfInput()}\r\r ${readStatus}\r`)
+        return (`Title : ${this.title} \rAuthor: ${this.author} \r Length: ${this.pages} pages\r\r ${this.timeOfInput()}\r\r`)
     }
+    this.readBtn = document.createElement('button')
+    this.readBtn.id = 'read-toggle-btn'
+    this.readBtn.className = myLibrary.length
+    this.readBtn.textContent = this.readStatus()
+
 }
 
 //for testing purposes - will delete later
@@ -34,36 +42,20 @@ const bookshelf = document.getElementById('bookshelf')
 
 const createBookCard = (bookToDisplay) => {
     let bookCard = document.createElement('div')
-    const readToggleBtn = document.createElement('button')
-    readToggleBtn.id = 'read-toggle-btn'
-    readToggleBtn.textContent= 'no'
     bookCard.innerText = (bookToDisplay.info())
-    bookCard.appendChild(readToggleBtn)
+    bookCard.appendChild(bookToDisplay.readBtn)
     bookshelf.appendChild(bookCard)
-}
-//make create button function separate so it has the read status
-//grab value of book.read 
-
-const changeReadStatus = () => {
-    const readStatusToggle = document.querySelectorAll('#read-toggle-btn')
-    readStatusToggle.forEach(element => {
-        element.addEventListener('click', e => console.log(e) )
-    })
 }
 
 const showBooks = (where) => {
     where.forEach(book => {
         createBookCard(book)
     });
-    changeReadStatus()
 }
 
 const addOnBookshelf = (addedBook) => {
     createBookCard(addedBook)
-    changeReadStatus()
 }
-
-
 
 showBooks(myLibrary)
 
@@ -96,3 +88,10 @@ function addBookToLibrary(addTitle, addAuthor, addPages, addRead) {
     addTitle = new Book(addTitle, addAuthor, addPages, addRead)
     myLibrary.push(addTitle)
 }
+
+const readStatusToggle = document.querySelector('#bookshelf')
+readStatusToggle.addEventListener('click', e => {
+    myLibrary[e.target.className].read ? myLibrary[e.target.className].read = false : myLibrary[e.target.className].read = true
+    myLibrary[e.target.className].readBtn.textContent = myLibrary[e.target.className].readStatus()
+})
+
