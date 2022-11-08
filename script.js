@@ -7,11 +7,23 @@ class Book {
         this.author = author
         this.pages = pages
         this.read = read
-        this.readBtn = document.createElement('button')
-        this.readBtn.id = 'read-toggle-btn'
-        this.readBtn.className = myLibrary.length
-        this.readBtn.textContent = this.readStatus()
+        this.readBtn = this.createReadBtn()
+        this.deleteBtn = this.createDelBtn()
     }
+
+    createReadBtn() {
+        let rBtn = document.createElement('button')
+        rBtn.id = 'change-read-button'
+        rBtn.textContent = this.readStatus()
+        return rBtn
+    }
+    createDelBtn() {
+        let dBtn = document.createElement('button')
+        dBtn.id = 'delete-book-button'
+        dBtn.textContent = 'delete book'
+        return dBtn
+    }
+
     readStatus() {
         return this.read ? 'You already read this book' : 'You did not read this book yet'
     }
@@ -27,6 +39,15 @@ class Book {
     }
 }
 
+const createBookCard = (bookToDisplay) => {
+    let bookCard = document.createElement('div')
+    bookCard.id = 'book-card'
+    bookCard.classList = myLibrary.indexOf(bookToDisplay)
+    bookCard.innerText = bookToDisplay.info()
+    bookCard.appendChild(bookToDisplay.readBtn)
+    bookCard.appendChild(bookToDisplay.deleteBtn)
+    bookshelf.appendChild(bookCard)
+}
 //for testing purposes - will delete later
 const book1 = new Book('addTitle', 'addAuthor', 'addPages', true)
 myLibrary.push(book1)
@@ -38,12 +59,6 @@ const book4 = new Book('fsdf', 'addAudfdsfthor', '333', true)
 myLibrary.push(book4)
 
 
-const createBookCard = (bookToDisplay) => {
-    let bookCard = document.createElement('div')
-    bookCard.innerText = (bookToDisplay.info())
-    bookCard.appendChild(bookToDisplay.readBtn)
-    bookshelf.appendChild(bookCard)
-}
 
 const showBooks = (fromWhere) => {
     fromWhere.forEach(book => {
@@ -82,9 +97,15 @@ function addBookToLibrary(addTitle, addAuthor, addPages, addRead) {
 
 const readStatusToggle = document.querySelector('#bookshelf')
 readStatusToggle.addEventListener('click', e => {
-    if (e.target.id === 'read-toggle-btn') {
-        myLibrary[e.target.className].read ? myLibrary[e.target.className].read = false : myLibrary[e.target.className].read = true
-        myLibrary[e.target.className].readBtn.textContent = myLibrary[e.target.className].readStatus()
+    console.log(e)
+    if (e.target.id === 'change-read-button') {
+        myLibrary[e.target.parentNode.className].read ? myLibrary[e.target.parentNode.className].read = false : myLibrary[e.target.parentNode.className].read = true
+        myLibrary[e.target.parentNode.className].readBtn.textContent = myLibrary[e.target.parentNode.className].readStatus()
+    }
+    if (e.target.id === 'delete-book-button') {
+        const bookToDel = e.target.parentNode
+        readStatusToggle.removeChild(bookToDel)
+        myLibrary.splice(e.target.parentNode.className, 1)
     }
 })
 

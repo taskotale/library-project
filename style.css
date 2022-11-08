@@ -65,15 +65,19 @@ body {
     grid-template-columns: repeat(3, 1fr);
 }
 
-#bookshelf>div {
+#book-card {
     background-color: var(--alternative-color);
     padding: var(--base-dimension);
     border-radius: var(--base-dimension);
     color: var(--accent-color);
 }
 
-#read-toggle-btn{
+#change-read-button {
     background-color: var(--accent-color);
-    padding: 2rem;
+    padding: 1rem;
     font-size: larger;
+}
+
+#delete-book-button {
+    background-color: var(--main-color);
 }
