@@ -35,7 +35,7 @@ body {
     z-index: -1;
     height: 50%;
     width: 30%;
-    background-color:var(--main-color);
+    background-color:var(--accent-color);
     border-radius: var(--base-dimension);
     box-shadow: 2px 2px 2px black;
 }
@@ -66,8 +66,14 @@ body {
 }
 
 #bookshelf>div {
-    height: 200px;
     background-color: var(--alternative-color);
     padding: var(--base-dimension);
     border-radius: var(--base-dimension);
+    color: var(--accent-color);
+}
+
+#read-toggle-btn {
+    background-color: red;
+    padding: 2rem;
+    font-size: larger;
 }
