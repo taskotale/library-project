@@ -81,3 +81,7 @@ body {
 #delete-book-button {
     background-color: var(--main-color);
 }
+
+#add-new-book-btn {
+    padding: 5rem;
+}

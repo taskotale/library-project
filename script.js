@@ -49,15 +49,14 @@ const createBookCard = (bookToDisplay) => {
     bookshelf.appendChild(bookCard)
 }
 //for testing purposes - will delete later
-const book1 = new Book('addTitle', 'addAuthor', 'addPages', true)
+const book0 = new Book('addTitle', 'addAuthor', 'addPages', true)
+myLibrary.push(book0)
+const book1 = new Book('bookrandom', 'someone', '23423', false)
 myLibrary.push(book1)
-const book2 = new Book('bookrandom', 'someone', '23423', false)
+const book2 = new Book('dsada', 'zdc', '213', true)
 myLibrary.push(book2)
-const book3 = new Book('dsada', 'zdc', '213', true)
+const book3 = new Book('fsdf', 'addAudfdsfthor', '333', true)
 myLibrary.push(book3)
-const book4 = new Book('fsdf', 'addAudfdsfthor', '333', true)
-myLibrary.push(book4)
-
 
 
 const showBooks = (fromWhere) => {
@@ -97,15 +96,21 @@ function addBookToLibrary(addTitle, addAuthor, addPages, addRead) {
 
 const readStatusToggle = document.querySelector('#bookshelf')
 readStatusToggle.addEventListener('click', e => {
-    console.log(e)
+    console.log(e.target.parentNode.className)
     if (e.target.id === 'change-read-button') {
         myLibrary[e.target.parentNode.className].read ? myLibrary[e.target.parentNode.className].read = false : myLibrary[e.target.parentNode.className].read = true
         myLibrary[e.target.parentNode.className].readBtn.textContent = myLibrary[e.target.parentNode.className].readStatus()
     }
-    if (e.target.id === 'delete-book-button') {
-        const bookToDel = e.target.parentNode
-        readStatusToggle.removeChild(bookToDel)
-        myLibrary.splice(e.target.parentNode.className, 1)
-    }
 })
 
+const deleteSelectedCard = document.querySelector('#bookshelf')
+deleteSelectedCard.addEventListener('click', e => {
+    if (e.target.id === 'delete-book-button') {
+        myLibrary.splice(e.target.parentNode.className, 1)
+        const bookCardToDel = document.querySelectorAll('#book-card')
+        bookCardToDel.forEach(element => {
+            element.remove()
+        });
+        showBooks(myLibrary)
+    }
+})
