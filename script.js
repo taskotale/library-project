@@ -51,11 +51,11 @@ const createBookCard = (bookToDisplay) => {
 //for testing purposes - will delete later
 const book0 = new Book('addTitle', 'addAuthor', 'addPages', true)
 myLibrary.push(book0)
-const book1 = new Book('bookrandom', 'someone', '23423', false)
+const book1 = new Book('bookRandom', 'someone', '23423', false)
 myLibrary.push(book1)
-const book2 = new Book('dsada', 'zdc', '213', true)
+const book2 = new Book('Sad', 'zdc', '213', true)
 myLibrary.push(book2)
-const book3 = new Book('fsdf', 'addAudfdsfthor', '333', true)
+const book3 = new Book('heyYou', 'addAud', '333', true)
 myLibrary.push(book3)
 
 
